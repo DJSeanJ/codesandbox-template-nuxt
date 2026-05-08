@@ -1,0 +1,3 @@
+# Drop track audio files here for local development.
+# Naming pattern: <id>-high.m4a, <id>-low.m4a (or whatever paths the manifest references).
+# In production, these are served from Cloudflare R2 — see NUXT_PUBLIC_AUDIO_BASE_URL.

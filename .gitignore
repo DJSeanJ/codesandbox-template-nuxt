@@ -67,9 +67,16 @@ typings/
 
 # nuxt.js build output
 .nuxt
+.output
 
 # Nuxt generate
 dist
+
+# Nitro storage (sessions, cache, etc.)
+.data/
+
+# Sensitive: forbidden-names list lives here in dev
+server/prompts/forbidden.local.ts
 
 # vuepress build output
 .vuepress/dist

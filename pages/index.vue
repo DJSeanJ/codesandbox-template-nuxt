@@ -1,11 +1,40 @@
-<template>
-  <Tutorial />
-</template>
+<script setup lang="ts">
+const entered = ref(false)
 
-<script lang="ts">
-import Vue from 'vue'
+const session = useSession()
+const chat = useChat()
+const manifest = useTrackManifest()
 
-export default Vue.extend({
-  name: 'IndexPage',
+async function enter() {
+  entered.value = true
+  await Promise.all([session.ensure(), manifest.load()])
+  await chat.hydrateFromServer()
+}
+
+onMounted(async () => {
+  await manifest.load()
 })
 </script>
+
+<template>
+  <div class="root">
+    <ShellEntryGate v-if="!entered" @enter="enter" />
+    <template v-else>
+      <WorldAmbientCanvas />
+      <ChatPanel />
+      <AudioNowPlayingDock />
+      <ShellAboutLink />
+      <ShellSupportOverlay />
+      <ShellSessionEnded />
+    </template>
+  </div>
+</template>
+
+<style scoped>
+.root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+</style>
