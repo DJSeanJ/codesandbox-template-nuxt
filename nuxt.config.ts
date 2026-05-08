@@ -7,26 +7,28 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     anthropicApiKey: '',
-    turnstileSecret: '',
     public: {
-      audioBaseUrl: '/audio',
-      turnstileSiteKey: '',
-      brandName: 'Life Is Gonna Live',
+      brandName: 'Life Is Gonna Life',
     },
   },
-  nitro: {
-    storage: {
-      sessions: { driver: 'fs', base: './.data/sessions' },
-      cache: { driver: 'fs', base: './.data/cache' },
+  routeRules: {
+    // /embed is iframed into GHL day pages. Let any origin frame it for now;
+    // in production, lock this down to the GHL/test.djseanj.com origin via
+    // env-driven override.
+    '/embed': {
+      headers: {
+        'Content-Security-Policy': "frame-ancestors *",
+        'X-Frame-Options': '',
+      },
     },
   },
   app: {
     head: {
-      title: 'Life Is Gonna Live',
+      title: 'Life Is Gonna Life',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-        { name: 'description', content: 'An interactive listening experience.' },
+        { name: 'description', content: 'A chat companion for the Life Is Gonna Life release.' },
         { name: 'color-scheme', content: 'dark' },
       ],
     },

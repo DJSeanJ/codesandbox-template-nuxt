@@ -26,7 +26,7 @@ function onKeydown(e: KeyboardEvent) {
       v-model="text"
       :disabled="disabled"
       rows="1"
-      placeholder="Speak softly."
+      placeholder="say something."
       maxlength="2000"
       @keydown="onKeydown"
     />

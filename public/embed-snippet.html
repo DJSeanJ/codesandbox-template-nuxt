@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  ============================================================================
+  GHL EMBED SNIPPET — Life Is Gonna Life chat widget
+  ============================================================================
+
+  HOW TO USE:
+    1. Pick the day this GHL page is for (Day 1, Day 2, Day 3, ...).
+    2. Copy the matching block below (between the BEGIN/END markers).
+    3. In GHL: edit the day page → add a Custom Code block at the bottom of
+       the page → paste the block.
+    4. Replace `https://CHAT_HOST` with the deployed widget URL once you
+       have one (Vercel, Cloudflare Pages, your own subdomain — e.g.,
+       `https://chat.djseanj.com`). Do this on every day page.
+
+  HOW IT WORKS:
+    - The iframe loads /embed?day=N from the chat host.
+    - The widget inside the iframe posts {type:'resize',width,height} when
+      its open/closed state changes.
+    - This page's small <script> listens for those messages and resizes the
+      iframe element accordingly, so the iframe is small (88×88) when only
+      the bubble shows, and large (412×592) when the panel is open.
+    - Outside the iframe rectangle, the rest of the GHL page is fully
+      interactive — visitors can still scroll, click, and listen to audio.
+
+  This file is itself accessible at /embed-snippet.html on the dev server,
+  for easy copy-paste reference. It is not deployed as the widget itself.
+============================================================================
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Embed snippet — Life Is Gonna Life</title>
+    <style>
+      body { font: 14px/1.5 ui-monospace, monospace; padding: 2rem; background: #0a0b0e; color: #e4e4e7; max-width: 880px; margin: 0 auto; }
+      h1 { font-size: 1rem; }
+      h2 { font-size: 0.9rem; margin-top: 2rem; }
+      pre { background: #16171b; border: 1px solid #2a2b30; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+      code { color: #c0c0c0; }
+      .note { color: rgba(228,228,231,0.55); font-size: 0.85rem; }
+    </style>
+  </head>
+  <body>
+    <h1>GHL embed snippet — Life Is Gonna Life</h1>
+    <p class="note">
+      Paste the matching block into a Custom Code element on each GHL day
+      page. Replace <code>CHAT_HOST</code> with your deployed chat-widget URL.
+    </p>
+
+    <h2>Day 1 page</h2>
+    <pre><code>&lt;!-- BEGIN: Life Is Gonna Life chat widget (Day 1) --&gt;
+&lt;iframe
+  id="ligl-chat"
+  src="https://CHAT_HOST/embed?day=1"
+  style="position:fixed;right:0;bottom:0;border:0;background:transparent;width:88px;height:88px;z-index:2147483640;transition:width 180ms ease,height 180ms ease;"
+  allowtransparency="true"
+  title="Talk to the artist"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+(function(){
+  var f=document.getElementById('ligl-chat');
+  window.addEventListener('message',function(e){
+    if(!f||e.source!==f.contentWindow)return;
+    var d=e.data;
+    if(!d||d.source!=='lifeisgonnalife'||d.type!=='resize')return;
+    var w=Math.min(d.width,window.innerWidth);
+    var h=Math.min(d.height,window.innerHeight);
+    f.style.width=w+'px';
+    f.style.height=h+'px';
+  });
+})();
+&lt;/script&gt;
+&lt;!-- END: Life Is Gonna Life chat widget --&gt;</code></pre>
+
+    <h2>Day 2 page</h2>
+    <p class="note">Same snippet; only the <code>day=</code> parameter changes.</p>
+    <pre><code>&lt;!-- BEGIN: Life Is Gonna Life chat widget (Day 2) --&gt;
+&lt;iframe
+  id="ligl-chat"
+  src="https://CHAT_HOST/embed?day=2"
+  style="position:fixed;right:0;bottom:0;border:0;background:transparent;width:88px;height:88px;z-index:2147483640;transition:width 180ms ease,height 180ms ease;"
+  allowtransparency="true"
+  title="Talk to the artist"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+(function(){
+  var f=document.getElementById('ligl-chat');
+  window.addEventListener('message',function(e){
+    if(!f||e.source!==f.contentWindow)return;
+    var d=e.data;
+    if(!d||d.source!=='lifeisgonnalife'||d.type!=='resize')return;
+    var w=Math.min(d.width,window.innerWidth);
+    var h=Math.min(d.height,window.innerHeight);
+    f.style.width=w+'px';
+    f.style.height=h+'px';
+  });
+})();
+&lt;/script&gt;
+&lt;!-- END: Life Is Gonna Life chat widget --&gt;</code></pre>
+
+    <h2>Day 3 page</h2>
+    <pre><code>&lt;!-- BEGIN: Life Is Gonna Life chat widget (Day 3) --&gt;
+&lt;iframe
+  id="ligl-chat"
+  src="https://CHAT_HOST/embed?day=3"
+  style="position:fixed;right:0;bottom:0;border:0;background:transparent;width:88px;height:88px;z-index:2147483640;transition:width 180ms ease,height 180ms ease;"
+  allowtransparency="true"
+  title="Talk to the artist"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+(function(){
+  var f=document.getElementById('ligl-chat');
+  window.addEventListener('message',function(e){
+    if(!f||e.source!==f.contentWindow)return;
+    var d=e.data;
+    if(!d||d.source!=='lifeisgonnalife'||d.type!=='resize')return;
+    var w=Math.min(d.width,window.innerWidth);
+    var h=Math.min(d.height,window.innerHeight);
+    f.style.width=w+'px';
+    f.style.height=h+'px';
+  });
+})();
+&lt;/script&gt;
+&lt;!-- END: Life Is Gonna Life chat widget --&gt;</code></pre>
+
+    <h2>Notes for the next person who touches this</h2>
+    <ul>
+      <li>For each new day you release, copy a block, change <code>day=N</code>, paste into that day's GHL page.</li>
+      <li>The chat host must allow iframe embedding from your GHL domain. The CSP <code>frame-ancestors</code> header is set on the <code>/embed</code> route in <code>nuxt.config.ts</code>; tighten it from <code>*</code> to your specific GHL domain before launch.</li>
+      <li>The <code>id="ligl-chat"</code> attribute must be unique on the page. If GHL inserts the snippet twice, the second one wins.</li>
+      <li>z-index 2147483640 is intentionally just below the JavaScript max so most overlays stay above it. Lower if it covers something it shouldn't.</li>
+    </ul>
+  </body>
+</html>

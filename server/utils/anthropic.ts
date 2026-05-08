@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk'
-import systemMdRaw from '../prompts/system.md?raw'
+import { SYSTEM_MARKDOWN } from '../prompts/system'
 import { trackManifestForPrompt } from '../prompts/tracks'
 
 export const MODEL = 'claude-sonnet-4-6'
@@ -26,10 +26,6 @@ interface CachedTextBlock {
   cache_control: { type: 'ephemeral' }
 }
 
-function buildSystemMarkdown(): string {
-  return systemMdRaw.replace('{{TRACKS}}', trackManifestForPrompt())
-}
-
 function splitSections(md: string): Record<string, string> {
   const sections: Record<string, string> = {}
   const matches = [...md.matchAll(/^## (.+)$/gm)]
@@ -43,20 +39,39 @@ function splitSections(md: string): Record<string, string> {
   return sections
 }
 
+let _cachedBlocks: CachedTextBlock[] | null = null
+
 export function buildCachedSystemBlocks(): CachedTextBlock[] {
-  const sections = splitSections(buildSystemMarkdown())
-  const worldVoice = [sections['world'], sections['voice']].filter(Boolean).join('\n\n')
+  if (_cachedBlocks) return _cachedBlocks
+  const md = SYSTEM_MARKDOWN.replace('{{TRACKS}}', trackManifestForPrompt())
+  const sections = splitSections(md)
+  const worldVoice = [sections['world'], sections['voice']]
+    .filter(Boolean)
+    .join('\n\n')
   const guardrails = sections['guardrails'] ?? ''
   const tracks = sections['tracks'] ?? ''
   const blocks: CachedTextBlock[] = []
   if (worldVoice) {
-    blocks.push({ type: 'text', text: worldVoice, cache_control: { type: 'ephemeral' } })
+    blocks.push({
+      type: 'text',
+      text: worldVoice,
+      cache_control: { type: 'ephemeral' },
+    })
   }
   if (guardrails) {
-    blocks.push({ type: 'text', text: guardrails, cache_control: { type: 'ephemeral' } })
+    blocks.push({
+      type: 'text',
+      text: guardrails,
+      cache_control: { type: 'ephemeral' },
+    })
   }
   if (tracks) {
-    blocks.push({ type: 'text', text: tracks, cache_control: { type: 'ephemeral' } })
+    blocks.push({
+      type: 'text',
+      text: tracks,
+      cache_control: { type: 'ephemeral' },
+    })
   }
+  _cachedBlocks = blocks
   return blocks
 }
