@@ -1,5 +1,10 @@
 # djtag — DJ Sean J library ID3 normalizer
 
+> **First time here? Read [TUTORIAL.md](./TUTORIAL.md) instead.**
+> It walks through installation and the daily workflow step by step,
+> assuming no coding background. This README is the short reference
+> version.
+
 Two-step automation for the daily inbox triage:
 
 1. Stamp the `album` field with a `YY MMDD: ` date prefix (idempotent).
