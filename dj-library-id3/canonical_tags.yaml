@@ -1,0 +1,119 @@
+# Canonical DJ Sean J genre/comment tag dictionary.
+#
+# Each entry:
+#   canonical:     the on-disk form written into the genre field
+#   category:      grouping for documentation only (not enforced)
+#   preserve_case: if true, canonical is written verbatim (no lowercasing)
+#                  Used for .DiG and .4hof / .4HOF where the case carries meaning.
+#   aliases:       alternate spellings/casing that should normalize TO canonical
+#                  (case-insensitive equality match). Optional.
+#
+# Tokens not listed here but starting with "." are preserved as-is (Sean-specific
+# tags whose meaning may not be obvious yet — see workflow doc section 9).
+#
+# Tokens without a leading dot, or close-but-not-exact matches to a canonical
+# entry, are flagged in review.csv rather than auto-rewritten.
+
+tags:
+  # ── Origin / source ──────────────────────────────────────────────────
+  - canonical: ".og"
+    category: origin
+    aliases: [og, .original, original]
+  - canonical: ".remix"
+    category: origin
+    aliases: [remix, .rmx, rmx]
+  - canonical: ".edit"
+    category: origin
+    aliases: [edit, .re-edit, re-edit, reedit]
+  - canonical: ".mashup"
+    category: origin
+    aliases: [mashup, mash-up, .mash-up]
+  - canonical: ".bootleg"
+    category: origin
+    aliases: [bootleg, boot, .boot]
+  - canonical: ".flip"
+    category: origin
+    aliases: [flip]
+
+  # ── Energy / vibe ────────────────────────────────────────────────────
+  - canonical: ".peak"
+    category: energy
+    aliases: [peak, peaktime, peak-time, .peaktime]
+  - canonical: ".warmup"
+    category: energy
+    aliases: [warmup, warm-up, .warm-up]
+  - canonical: ".closer"
+    category: energy
+    aliases: [closer, close, .close]
+  - canonical: ".opener"
+    category: energy
+    aliases: [opener, open, .open]
+  - canonical: ".groove"
+    category: energy
+    aliases: [groove, groovy, .groovy]
+  - canonical: ".dark"
+    category: energy
+    aliases: [dark]
+  - canonical: ".hype"
+    category: energy
+    aliases: [hype, hyped, .hyped]
+  - canonical: ".chill"
+    category: energy
+    aliases: [chill, chilled, .chilled]
+
+  # ── Genre family ─────────────────────────────────────────────────────
+  - canonical: ".house"
+    category: genre
+    aliases: [house]
+  - canonical: ".techno"
+    category: genre
+    aliases: [techno]
+  - canonical: ".tech-house"
+    category: genre
+    aliases: [techhouse, tech-house, "tech house", .techhouse]
+  - canonical: ".deep"
+    category: genre
+    aliases: [deep, deephouse, "deep house", .deephouse]
+  - canonical: ".afro"
+    category: genre
+    aliases: [afro, afrohouse, "afro house", .afrohouse]
+  - canonical: ".melodic"
+    category: genre
+    aliases: [melodic]
+  - canonical: ".progressive"
+    category: genre
+    aliases: [progressive, prog, .prog]
+  - canonical: ".disco"
+    category: genre
+    aliases: [disco, nudisco, "nu disco", .nudisco]
+  - canonical: ".funk"
+    category: genre
+    aliases: [funk, funky, .funky]
+  - canonical: ".breaks"
+    category: genre
+    aliases: [breaks, breakbeat, .breakbeat]
+
+  # ── Special-case preserve-exact tags ─────────────────────────────────
+  - canonical: ".DiG"
+    category: collection
+    preserve_case: true
+    aliases: [.dig, dig]
+  - canonical: ".4hof"
+    category: collection
+    preserve_case: true
+    aliases: [4hof]
+  - canonical: ".4HOF"
+    category: collection
+    preserve_case: true
+    aliases: []
+
+  # ── Status / workflow ────────────────────────────────────────────────
+  - canonical: ".new"
+    category: status
+    aliases: [new]
+  - canonical: ".tested"
+    category: status
+    aliases: [tested]
+  - canonical: ".staple"
+    category: status
+    aliases: [staple, staples, .staples]
